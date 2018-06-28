@@ -1,0 +1,16 @@
+{
+  "name": "vakantie-muziek",
+  "version": "1.0.0",
+  "description": "This is a site were my family can submit music for the Spotify playlist.",
+  "main": "index.js",
+  "scripts": {
+    "test": "sudo node index.js"
+  },
+  "author": "YoloGamer123415",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nodemailer": "^4.6.7",
+    "socket.io": "^2.1.1"
+  }
+}
