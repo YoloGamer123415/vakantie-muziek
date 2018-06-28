@@ -10,5 +10,5 @@ npm install
 npm run test
 ```
 
-Note for myself:
-  Fill in the password for the mailaccount in `index.js` on line 96
+# Note
+Fill in the password for the mailaccount in `index.js` on line 96
