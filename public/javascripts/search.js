@@ -2,6 +2,7 @@
     const close = document.getElementById('close')
     const songPlay = document.getElementById('preview-play')
     const songPause = document.getElementById('preview-pause')
+    const addSong = document.getElementById('add-song')
 
     const viewSong = document.getElementById('view-song')
     const viewSongImage = document.getElementById('view-song-image')
@@ -31,6 +32,7 @@
                     }
                     viewSongName.innerText = res.name
                     viewSongSpotify.href = res.external_urls.spotify
+                    addSong.href = `/add?song=${res.id}`
 
                     var playing = new Howl({
                         src: [ res.preview_url.toString() ],
