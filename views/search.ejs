@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#e67e22" />
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="/stylesheets/search.css">
+    <title>Zoekresultaten - Vakantie Muziek</title>
+</head>
+<body>
+    <header data-filled="true">
+        <nav class="small">
+            <div class="left">
+                <a class="home" href="/">VM</a>
+            </div>
+
+            <div class="right">
+                <!-- menu -->
+            </div>
+        </nav>
+
+        <nav class="big">
+            <div class="left">
+                <a class="home" href="/">VM</a>
+            </div>
+
+            <div class="right">
+                <a href="#">item1</a>
+                <a href="#">item2</a>
+                <a href="#">item3</a>
+            </div>
+        </nav>
+    </header>
+
+    <menu>
+        
+    </menu>
+
+    <% if (user && !user.accepted) { %>
+        <div class="cookies" id="cookie-bar">
+            <div class="cookie-info">
+                <span>Ik moet je vertellen dat deze website gebruik maakt van cookies om te onthouden wie je bent. Zonder deze cookies werkt de website niet. Door op de website te browsen accepteer je deze cookies.</span>
+            </div>
+
+            <div class="cookie-accept">
+                <input type="button" id="accept-cookies" value="Ok">
+            </div>
+        </div>
+    <% }; %>
+
+    <div class="scroll-top hidden" id="scroll-top">
+        <i class="fas fa-chevron-circle-up"></i>
+    </div>
+
+    <div class="view-song hidden" id="view-song">
+        <div class="view-box">
+            <div class="close" id="close">
+                <i class="fas fa-times-circle"></i>
+            </div>
+
+            <div class="image">
+                <img id="view-song-image" src="" alt="">
+            </div>
+
+            <div class="title">
+                <h1 id="view-song-title"></h1>
+
+                <p id="view-song-artists"></p>
+            </div>
+
+            <div class="info">
+                <div class="view-song-preview">
+                    <div class="view-song-buttons">
+                        <div class="view-song-play" id="preview-play">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+
+                        <div class="view-song-pause hidden" id="preview-pause">
+                            <i class="fas fa-pause-circle"></i>
+                        </div>
+                    </div>
+
+                    <div class="view-song-text">
+                        Klik om naar een preview van <span class="highlight" id="preview-song-name"></span> te luisteren.
+                    </div>
+                </div>
+
+                <div class="view-song-listenSpotify">
+                    <p>
+                        Luister naar <span class="highlight view-song-name"></span> op <a href="" class="view-song-spotify" target="_blank">Spotify</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <div class="landing-page small">
+            <div class="info">
+                <h1>Zoekresultaten</h1>
+
+                <p>Zoekresultaten voor <span class="highlight"><%= search.query %></span>.</p>
+
+                <form action="/search">
+                    <input type="text" name="query" placeholder="Liedjes zoeken...">
+
+                    <input type="submit" value="Zoek">
+                </form>
+            </div>
+        </div>
+
+        <div class="container">
+            <table class="songs">
+                <tr class="titles">
+                    <th></th>
+                    <th>Titel</th>
+                    <th>Artiest(en)</th>
+                    <th class="song-length">Lengte</th>
+                </tr>
+
+                <% search.results.forEach((song, i) => { %>
+                    <tr class="song-item" id="song-<%= song.id %>" data-songid="<%= song.id %>" title="Klik om meer informatie over '<%= song.name %>' te zien.">
+                        <td class="song-number"><%= i + 1 %></td>
+
+                        <td class="song-name <%= song.explicit ? `explicit` : '' %>"><%= song.name %></td>
+
+                        <td class="song-artists">
+                            <% song.artists.forEach((artist, j) => { %>
+                                <%= artist.name + (j + 1 == song.artists.length ? '' : ', ') %>
+                            <% }); %>
+                        </td>
+
+                        <td class="song-length"><%- parseTime(song.duration_ms) %></td>
+                    </tr>
+                <% }); %>
+            </table>
+
+            <p class="not-found">
+                Staat je liedje er niet tussen? Probeer dan te zoeken op <span class="highlight">naam liedje + naam artiest</span> om gerichter te zoeken.
+            </p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="info">
+            <div class="inner">
+                <p class="identifier">Aantal liedjes:</p>
+                <p class="value"><%= album.length %></p>
+
+                <p class="identifier">Totale lengte:</p>
+                <p class="value"><%= parseTime(album.time) %></p>
+            </div>
+        </div>
+
+        <div class="creds">
+            <span>&copy; Copyright 2019-2020. All rights reserved. | Made by <a href="https://github.com/YoloGamer123415/">Joram Buitenhuis</a>.</span>
+        </div>
+    </footer>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.2/howler.min.js'></script>
+    <script src="https://kit.fontawesome.com/0b3020ccf6.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <script src="/javascripts/search.js"></script>
+</body>
+</html>

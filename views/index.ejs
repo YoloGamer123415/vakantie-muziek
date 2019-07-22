@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="theme-color" content="#e67e22" />
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <title>Home - Vakantie Muziek</title>
+</head>
+<body>
+    <header data-filled="false">
+        <nav class="small">
+            <div class="left">
+                <a class="home" href="/">VM</a>
+            </div>
+
+            <div class="right">
+                <!-- menu -->
+            </div>
+        </nav>
+
+        <nav class="big">
+            <div class="left">
+                <a class="home" href="/">VM</a>
+            </div>
+
+            <div class="right">
+                <a href="#">item1</a>
+                <a href="#">item2</a>
+                <a href="#">item3</a>
+            </div>
+        </nav>
+    </header>
+
+    <menu>
+        
+    </menu>
+
+    <% if (user && !user.accepted) { %>
+        <div class="cookies" id="cookie-bar">
+            <div class="cookie-info">
+                <span>Ik moet je vertellen dat deze website gebruik maakt van cookies om te onthouden wie je bent. Zonder deze cookies werkt de website niet. Door op de website te browsen accepteer je deze cookies.</span>
+            </div>
+
+            <div class="cookie-accept">
+                <input type="button" id="accept-cookies" value="Ok">
+            </div>
+        </div>
+    <% }; %>
+
+    <div class="scroll-top hidden" id="scroll-top">
+        <i class="fas fa-chevron-circle-up"></i>
+    </div>
+
+    <main>
+        <div class="landing-page">
+            <div class="info">
+                <h1>Vakantie Muziek</h1>
+
+                <p>Er zitten al <span class="highlight"><%= album.length %></span> liedjes in de lijst!</p>
+
+                <form action="/search">
+                    <input type="text" name="query" placeholder="Liedjes zoeken...">
+
+                    <input type="submit" value="Zoek">
+                </form>
+            </div>
+        </div>
+
+        <div class="container">
+            <p>
+                Hieronder zie je alle liedjes die we tot nu toe al hebben verzameld, wat er maar liefst <span class="highlight"><%= album.length %></span> zijn! Kijk er even doorheen en misschien krijg je er wel inspiratie door voor nog meer leuke liedjes.
+            </p>
+
+            <table class="songs">
+                <tr class="titles">
+                    <th></th>
+                    <th>Titel</th>
+                    <th>Artiest(en)</th>
+                    <th class="song-length">Lengte</th>
+                </tr>
+
+                <% album.songs.forEach((song, i) => { %>
+                    <tr class="song-item" id="song-<%= song.track.id %>" data-songid="<%= song.track.id %>" title="Klik om meer info over '<%= song.track.name %>' te zien.">
+                        <td class="song-number"><%= i + 1 %></td>
+                        <td class="song-name <%= song.track.explicit ? `explicit` : '' %>"><%= song.track.name %></td>
+                        <td class="song-artists">
+                            <% song.track.artists.forEach((artist, j) => { %>
+                                <%= artist.name + (j + 1 == song.track.artists.length ? '' : ', ') %>
+                            <% }); %>
+                        </td>
+                        <td class="song-length"><%- parseTime(song.track.duration_ms) %></td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <div class="info">
+            <div class="inner">
+                <p class="identifier">Aantal liedjes:</p>
+                <p class="value"><%= album.length %></p>
+
+                <p class="identifier">Totale lengte:</p>
+                <p class="value"><%= parseTime(album.time) %></p>
+            </div>
+        </div>
+
+        <div class="creds">
+            <span>&copy; Copyright 2019-2020. All rights reserved. | Made by <a href="https://github.com/YoloGamer123415/">Joram Buitenhuis</a>.</span>
+        </div>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/0b3020ccf6.js"></script>
+    <script src="/javascripts/main.js"></script>
+    <script src="/javascripts/index.js"></script>
+</body>
+</html>
